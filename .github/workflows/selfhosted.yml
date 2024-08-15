@@ -36,7 +36,7 @@ on:
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
         required: true
-        default: 'https://$privateToken@github.com/sounddrill31/local_manifests_oxygen'
+        default: 'https://"$privateToken"@github.com/sounddrill31/local_manifests_oxygen'
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
@@ -158,7 +158,7 @@ jobs:
         "RisingOS 14")
           export PROJECTFOLDER="/crave-devspaces/Rising14"
           export PROJECTID="86"
-          export REPO_INIT="repo init -u https://$privateToken@github.com/HinohArata/ros_staging.git -b fourteen --git-lfs --depth=1"
+          export REPO_INIT="repo init -u https://"$privateToken"@github.com/HinohArata/ros_staging.git -b fourteen --git-lfs --depth=1"
         ;;
         "LineageOS 18.1")
           export PROJECTFOLDER="/crave-devspaces/Lineage18"
