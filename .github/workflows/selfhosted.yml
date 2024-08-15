@@ -13,7 +13,7 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'LineageOS 21.0'
+        default: 'RisingOS 14'
         type: choice
         options:
           - 'LineageOS 20.0'
@@ -36,19 +36,19 @@ on:
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
         required: true
-        default: 'https://github.com/sounddrill31/local_manifests_oxygen'
+        default: 'https://$privateToken@github.com/sounddrill31/local_manifests_oxygen'
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'lineage-21-qpr3'
+        default: 'fourteen'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
-        default: "oxygen"
+        default: "surya"
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "oxygen"
+        default: "lineage_surya-ap2a"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
@@ -56,7 +56,7 @@ on:
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
-        default: 'userdebug'
+        default: 'user'
         type: choice
         options: 
         - 'eng'
@@ -158,7 +158,7 @@ jobs:
         "RisingOS 14")
           export PROJECTFOLDER="/crave-devspaces/Rising14"
           export PROJECTID="86"
-          export REPO_INIT="repo init -u https://github.com/RisingTechOSS/android.git -b fourteen --git-lfs --depth=1"
+          export REPO_INIT="repo init -u https://$privateToken@github.com/HinohArata/ros_staging.git -b fourteen --git-lfs --depth=1"
         ;;
         "LineageOS 18.1")
           export PROJECTFOLDER="/crave-devspaces/Lineage18"
@@ -201,6 +201,8 @@ jobs:
         echo "LUNCH=$LUNCH" >> "$GITHUB_OUTPUT"
         echo "LOCAL_MANIFEST=$LOCAL_MANIFEST" >> "$GITHUB_ENV"
         echo "LOCAL_MANIFEST=$LOCAL_MANIFEST" >> "$GITHUB_OUTPUT"
+      env:
+        privateToken: ${{ secrets.PRIVATE_TOKEN }}
 
     - name: Display Run Parameters # Credit to azwhikaru for this part
       run: |
@@ -229,6 +231,7 @@ jobs:
       REPO_INIT: ${{ steps.proj-variables.outputs.REPO_INIT }}
       LUNCH: ${{ steps.proj-variables.outputs.LUNCH }}
       LOCAL_MANIFEST: ${{ steps.proj-variables.outputs.LOCAL_MANIFEST }}
+       
 
   test:
     name: Test Local Manifests
